@@ -39,8 +39,6 @@ To generate only the body-weight and population-reference diagnostics:
 python efs_qc.py --feed visits.csv --farm EXAMPLE --output_dir ./references --reference-only
 ```
 
-Reference smoothing may be changed using `--smooth-factor` (default: `0.5`).
-
 ## Processing steps
 
 1. **Body weight:** Per-animal quadratic robust regression with Tukey biweights; retain individual weight observations with weight > 0.25 and dates with a maximum retained biweight >= 0.90. Require daily growth-fit R² >= 0.99. Fill internal days with linear interpolation and handle edge days using bounded natural cubic splines.
@@ -61,12 +59,3 @@ Reference smoothing may be changed using `--smooth-factor` (default: `0.5`).
 
 All outputs are created under `--output_dir`.
 
-## Scope and limitations
-
-This repository provides the quality-control and corrected daily feed-intake pipeline only. It does **not** calculate final animal-level FCR, estimate genetic parameters, perform cross-validation, or include separate species-specific data adapters. The fitted statistical adjustment is not a verified measurement of an animal's true intake or the physical cause of any anomalous visit. For genetic cross-validation, refit cohort-level correction components using only training data as required to prevent leakage.
-
-The code has been checked with synthetic examples, but performance on an unpublished production dataset is not established here. No private source data are distributed.
-
-## Reuse
-
-The source is publicly viewable if the GitHub repository is public. This two-file release does not grant an explicit open-source license. Add an appropriate license if you want to permit redistribution or modification under specified terms.
